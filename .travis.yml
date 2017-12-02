@@ -1,4 +1,11 @@
-   language: node_js
-   node_js: node
-   services: 
-   - mongodb
+language: node_js
+node_js: node
+services:
+- mongodb
+deploy:
+  provider: heroku
+  api_key:
+    secure: yMzEAWvTsA07bndFPY8RD1w9yMbX5+/zyBkkNyERSl0Ykpggm7r7z281MhRiDuZI/af2i5VCbiNFSoIDYYIJSif4Xg5tz6kKGDVXGY8u8n9WOpXhrXnqhfuSkTfJDx2zvq9Prp6Aq9EeB8tq/tGWZskxXtXnmF2gpWhxrhbCa68OVNE5ZF8jNPTE28WHi7kcEZmm0AWeg3dqjs578cAtzhN/PnT/wWIvJTxZqup0D09qZ5rPixFnQKprF+jLv/dL34L04YZ1AISt44EUlf5j2DTij7OiuqgBQREANUAo59dF/Q+WsKtpgZrV0c/pqB5J7lk4/2yT80yJuprp4lyalfb/bHa6NZ0arK7MsXWy2nWZCMT0dNeNe1YN4FLyJ3Xb6RLfmdE6wKtonahYkdDhYHTdfksWecSwcQPWHWY4ucZmxfjd7v1V4krWI3M+hOyeROj12y5GFC5z8WH7HODAlbAJrcpZBYCEs1GqRCNF43lINF/XVcYjB3Y1BcUdFYBIMhM6B1asIHqFyS75wLnfVxQ+aEe8dNofEhum4Y+OK8AdZCPFEhgWGp7fRDZOZLhEibh2ms7sDrDdpyfnQ59VGI8pjSASnR94u6vXAsw0SFb+wnBaVhuM6bQx+lgmeBgFtfIgYlGAzzEajbGIX0+MwDZbDNseJh//Yea+XFiCY28=
+  app: frozen-temple-20849
+  on:
+    repo: stavdavis/pediatrician-app
