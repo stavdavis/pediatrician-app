@@ -39,7 +39,7 @@ var MOCK_VACCINE_LIST = {
             "vaccineStatus": "Done",      //"Done", "Not done"
             "dueDate": 1470016976609,     //Date
             "doneDate": 1470016976609     //Date, null
-        }
+        },
         {
             "vaccineId": 55555555,        //number
             "vaccineName": "PCV13",       //string
@@ -49,7 +49,7 @@ var MOCK_VACCINE_LIST = {
             "vaccineStatus": "Done",      //"Done", "Not done"
             "dueDate": 1470016976609,     //Date
             "doneDate": 1470016976609     //Date, null
-        }
+        },
         {
             "vaccineId": 66666666,        //number
             "vaccineName": "RotaVirus",  //string
@@ -59,7 +59,7 @@ var MOCK_VACCINE_LIST = {
             "vaccineStatus": "Not yet",      //"Done", "Not done"
             "dueDate": 1470016976609,     //Date
             "doneDate": null     //Date, null
-        }
+        },
         {
             "vaccineId": 77777777,        //number
             "vaccineName": "FLU-IIV4-6-35m-pf-2017-1",  //string
@@ -76,7 +76,7 @@ var MOCK_VACCINE_LIST = {
 //this function is the only one that will change with the real api - 
 //instead of the timeout, we will use jQuery to make an ajax call to the endpoint
 function getVaccineList(callbackFn) {
-    setTimeout(function(){ callbackFn(MOCK_STATUS_UPDATES)}, 100);
+    setTimeout(function() { callbackFn(MOCK_VACCINE_LIST)}, 100);
 }
 
 // this function stays the same when we connect
@@ -94,10 +94,10 @@ function displayVaccineList(data) {
 
 // this function can stay the same even when we
 // are connecting to real API
-function getAndDisplayStatusUpdates() {
-    getRecentStatusUpdates(displayStatusUpdates);
+function getAndDisplayVaccineList() {
+    getVaccineList(displayVaccineList);
 }
 
 $(function() {
-    getAndDisplayStatusUpdates();
+    getAndDisplayVaccineList();
 })
