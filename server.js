@@ -8,7 +8,7 @@ mongoose.Promise = global.Promise;
 // config.js is where we control constants for entire
 // app like PORT and DATABASE_URL
 const {PORT, DATABASE_URL} = require('./config');
-const {Vaccine} = require('./models');
+const Vaccine = require('./src/models/vaccine');
 
 app.use(express.static('public')); //to serve static index.html file
 app.use(bodyParser.json());
@@ -145,7 +145,7 @@ function closeServer() {
            if (err) {
                return reject(err);
            }
-           resolve(); 
+           resolve();
        });
      });
   });
