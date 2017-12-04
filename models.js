@@ -20,6 +20,7 @@ vaccineSchema.methods.apiRepr = function() {
   return {
     id: this._id,
     vaccineName: this.vaccineName,
+    vaccineStatus: this.vaccineStatus,
     patientId: this.patientId,
     relatedDiseases: this.relatedDiseases,
     dueDate: this.dueDate,
