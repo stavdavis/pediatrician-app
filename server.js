@@ -10,7 +10,7 @@ mongoose.Promise = global.Promise;
 const {PORT, DATABASE_URL} = require('./config');
 const Vaccine = require('./src/models/vaccine');
 
-app.use(express.static('public')); //to serve static index.html file
+app.use(express.static('./src/public')); //to serve static index.html file
 app.use(bodyParser.json());
 
 // GET requests to /vaccines
