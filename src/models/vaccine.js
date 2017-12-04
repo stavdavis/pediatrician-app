@@ -1,22 +1,22 @@
 const mongoose = require('mongoose');
 
 // this is our schema to represent a vaccine
-const vaccineSchema = mongoose.Schema({
+const schema = mongoose.Schema({
   vaccineName: {type: String, required: true},
   vaccineStatus: {type: String, required: true}, //"Done" or "Not yet"
   patientName: {type: String},
   patientId: {type: Number, required: true},
   relatedDiseases: {type: String, required: true},
   dueDate: {type: Date},
-  doneDate: {type: Date} 
+  doneDate: {type: Date}
 });
 
 // virtuals define object properties that are nicer representations of db properties (via apiRepr below)
-// vaccineSchema.virtual('vaccineString').get(function() {
+// schema.virtual('vaccineString').get(function() {
 //   return `${this.address.building} ${this.address.street}`.trim()});
 
 //Manipulating the representation of the returned API data:
-vaccineSchema.methods.apiRepr = function() {
+schema.methods.apiRepr = function() {
   return {
     id: this._id,
     vaccineName: this.vaccineName,
@@ -28,6 +28,6 @@ vaccineSchema.methods.apiRepr = function() {
   };
 }
 
-const Vaccine = mongoose.model('Vaccine', vaccineSchema);
+const Vaccine = mongoose.model('Vaccine', schema);
 
-module.exports = {Vaccine};
+module.exports = Vaccine;
