@@ -25,11 +25,16 @@ router.get('/', jsonParser, (req, res) => {
     });
 });
 
-// can also request by patientID
-router.get('/:patientId', jsonParser, (req, res) => {
+// can also request by patientId
+router.get('/findPatient/:patientId', (req, res) => {
   Vaccine
     .find({patientId: req.params.patientId})
-    .then(vaccine =>res.json(vaccine.apiRepr()))
+    .then(vaccines => {
+      res.json({
+        vaccines: vaccines.map(
+          (vaccine) => vaccine.apiRepr())
+      });
+    })
     .catch(err => {
       console.error(err);
         res.status(500).json({message: 'Internal server error'})

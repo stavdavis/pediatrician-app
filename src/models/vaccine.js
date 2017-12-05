@@ -5,7 +5,7 @@ const schema = mongoose.Schema({
   vaccineName: {type: String, required: true},
   vaccineStatus: {type: String, required: true}, //"Done" or "Not yet"
   patientName: {type: String},
-  patientId: {type: Number, required: true},
+  patientId: {type: String, required: true},
   relatedDiseases: {type: String, required: true},
   dueDate: {type: Date},
   doneDate: {type: Date}
