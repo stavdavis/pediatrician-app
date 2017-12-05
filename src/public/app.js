@@ -13,11 +13,11 @@ function displayVaccineList(data) {
         console.log(data);
         console.log(data.vaccines);
        $('body').append(
-        '<p>' + data.vaccineList[index].vaccineName + '<br>' +
-        data.vaccineList[index].relatedDiseases + '<br>' +
-        data.vaccineList[index].vaccineStatus + '<br>' +
-        data.vaccineList[index].dueDate + '<br>' +
-        data.vaccineList[index].doneDate + '</p>');
+        '<p>' + data.vaccines[index].vaccineName + '<br>' +
+        data.vaccines[index].relatedDiseases + '<br>' +
+        data.vaccines[index].vaccineStatus + '<br>' +
+        data.vaccines[index].dueDate + '<br>' +
+        data.vaccines[index].doneDate + '</p>');
     }
 }
 
