@@ -10,6 +10,7 @@ function getVaccineList(callbackFn) {
 // to real API later
 function displayVaccineList(data) {
     for (index in data.vaccines) {
+        console.log(alert);
        $('body').append(
         '<p>' + data.vaccineList[index].vaccineName + '<br>' +
         data.vaccineList[index].relatedDiseases + '<br>' +
