@@ -1,16 +1,35 @@
-//this function is the only one that will change with the real api - 
-//instead of the timeout, we will use jQuery to make an ajax call to the endpoint
+let loggedInUser = "MargeAndHomerSimpson";
+
+////////GETTING AND DISPLAYING CLIENT'S KIDS (PATIENTS) - START//////////
+//This function gets all patients that have this user as their parent or guardian
+function getPatients(callbackFn) {
+    let patientJsonUrl = 'https://frozen-temple-20849.herokuapp.com/patients/' + loggedInUser;
+  $.getJSON(patientJsonUrl, data => callbackFn(data))
+  .error(e => { `Bad API connection` });  
+}
+
+function displayPatientButtons(data) {
+    for (index in data.patients) {
+       $('.select-child').html(
+        '<button>' + data.patients[index].firstName + '</button>');
+    }
+}
+
+function getAndDisplayPatientButtons() {
+    getPatients(displayPatientButtons);
+}
+////////GETTING AND DISPLAYING CLIENT'S KIDS (PATIENTS) - END//////////
+
+////////GETTING AND DISPLAYING VACCINES - START//////////
 function getVaccineList(callbackFn) {
     let vaccineJsonUrl = 'https://frozen-temple-20849.herokuapp.com/vaccines';
   $.getJSON(vaccineJsonUrl, data => callbackFn(data))
   .error(e => { `Bad API connection` });  
 }
 
-// this function stays the same when we connect
-// to real API later
 function displayVaccineList(data) {
     for (index in data.vaccines) {
-       $('body').append(
+       $('.body').html(
         '<p>' + data.vaccines[index].vaccineName + '<br>' +
         data.vaccines[index].relatedDiseases + '<br>' +
         data.vaccines[index].vaccineStatus + '<br>' +
@@ -19,12 +38,13 @@ function displayVaccineList(data) {
     }
 }
 
-// this function can stay the same even when we
-// are connecting to real API
 function getAndDisplayVaccineList() {
     getVaccineList(displayVaccineList);
 }
+////////GETTING AND DISPLAYING VACCINES - END//////////
+
 
 $(function() {
-    getAndDisplayVaccineList();
+    getAndDisplayPatientButtons();
+    // getAndDisplayVaccineList();
 })

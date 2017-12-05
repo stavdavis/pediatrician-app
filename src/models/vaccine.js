@@ -11,10 +11,6 @@ const schema = mongoose.Schema({
   doneDate: {type: Date}
 });
 
-// virtuals define object properties that are nicer representations of db properties (via apiRepr below)
-// schema.virtual('vaccineString').get(function() {
-//   return `${this.address.building} ${this.address.street}`.trim()});
-
 //Manipulating the representation of the returned API data:
 schema.methods.apiRepr = function() {
   return {

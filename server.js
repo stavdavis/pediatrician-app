@@ -16,8 +16,14 @@ app.use(express.static('./src/public')); //to serve static index.html file
 app.use(bodyParser.json());
 
 ///////ENDPOINT ROUTING MANAGEMENT SECTION - START
+const patientsRouter = require('./src/routers/patientsRouter');
+app.use('/patients', patientsRouter);
+
 const vaccinesRouter = require('./src/routers/vaccinesRouter');
 app.use('/vaccines', vaccinesRouter);
+
+const appointmentsRouter = require('./src/routers/appointmentsRouter');
+app.use('/appointments', appointmentsRouter);
 
 ///////ENDPOINT ROUTING MANAGEMENT SECTION- END
 
