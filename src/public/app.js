@@ -19,8 +19,8 @@ function displayPatientButtons(data) {
     }
 }
 
-function getAndDisplayPatientButtons() {
-    getPatientsByGuardian(displayPatientButtons);
+const getAndDisplayPatientButtons = new Promise((resolve, reject) => {
+    resolve(getPatientsByGuardian(displayPatientButtons));
 }
 ////////GETTING AND DISPLAYING CLIENT'S KIDS (PATIENTS) - END//////////
 
@@ -57,8 +57,7 @@ function getAndDisplayVaccineList() {
 ////////GETTING AND DISPLAYING VACCINES - END//////////
 
 
-let selectedPatientId;
 $(function() {
-    getAndDisplayPatientButtons();
-    logPatientIdFromButton();
+    getAndDisplayPatientButtons
+    .then(logPatientIdFromButton());
 })
