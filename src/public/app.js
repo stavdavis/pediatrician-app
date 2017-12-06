@@ -39,7 +39,7 @@ function logPatientIdFromButton() {
 // function getSelectedPatientId() {
     // /byPatient/:patientId
 
-}
+// }
 ////////GETTING THE SELECTED PATIENT'S ID - END//////////
 
 
