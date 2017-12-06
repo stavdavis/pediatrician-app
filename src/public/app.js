@@ -25,22 +25,12 @@ function getAndDisplayPatientButtons() {
 ////////GETTING AND DISPLAYING CLIENT'S KIDS (PATIENTS) - END//////////
 
 
-////////DEALING WITH PATIENT BUTTON CLICK///////////
 //A patient button listener that logs the unique patient ID of the selected patient
 function logPatientIdFromButton() {
   $('.patient-button').click(event => {
-  selectedPatientId = $(this).attr('class').split(' ')[1]; //the second class was set to be the unique patientId
+  selectedPatientId = $(event.currentTarget).attr('class').split(' ')[1]; //the second class was set to be the unique patientId
   });
 }
-
-
-
-////////GETTING THE SELECTED PATIENT'S ID - START//////////
-// function getSelectedPatientId() {
-    // /byPatient/:patientId
-
-// }
-////////GETTING THE SELECTED PATIENT'S ID - END//////////
 
 
 ////////GETTING AND DISPLAYING VACCINES - START//////////

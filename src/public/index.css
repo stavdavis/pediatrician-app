@@ -1,0 +1,12 @@
+body * {
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+}
+
+.upper-bar {
+  margin-bottom: 25px;
+}
+
+.patient-buttons {
+	margin-bottom: 25px
+}
