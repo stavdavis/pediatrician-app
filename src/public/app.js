@@ -1,6 +1,6 @@
 const baseUrl = 'https://frozen-temple-20849.herokuapp.com';
 
-let loggedInUser = "MargeAndHomerSimpson";
+let loggedInUser = "LoisAndPeterGriffin";
 $('.logged-in-as').text(`Logged in as: ${loggedInUser}`);
 
 ////////GETTING AND DISPLAYING CLIENT'S KIDS (PATIENTS) - START//////////
@@ -29,13 +29,12 @@ const getAndDisplayPatientButtons = new Promise((resolve, reject) => {
 function logPatientIdFromButton() {
   $('.patient-buttons').on('click', '.patient-button', event => { //need event deleation here, b/c patient-button doesn't exist upon initial page load
   currentPatientId = $(event.currentTarget).attr('class').split(' ')[1]; //the second class was set to be the unique patientId
-  alert(currentPatientId);
   });
 }
 
 
 ////////GETTING AND DISPLAYING VACCINES - START//////////
-function getVaccineList(callbackFn) {
+function getVaccinesByPatient(callbackFn) {
     let vaccineJsonUrl = baseUrl + '/vaccines';
   $.getJSON(vaccineJsonUrl, data => callbackFn(data))
   .error(e => { `Bad API connection` });  
@@ -52,12 +51,12 @@ function displayVaccineList(data) {
     }
 }
 
-function getAndDisplayVaccineList() {
-    getVaccineList(displayVaccineList);
+function getAndDisplayVaccinesByPatient() {
+    getVaccinesByPatient(displayVaccineList);
 }
 ////////GETTING AND DISPLAYING VACCINES - END//////////
 
-let currentPatientId;
+let currentPatientId; //this variable is updated upon patient selection in logPatientIdFromButton
 $(function() {
     getAndDisplayPatientButtons
     .then(logPatientIdFromButton); 
