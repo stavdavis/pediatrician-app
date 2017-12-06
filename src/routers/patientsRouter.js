@@ -29,10 +29,10 @@ router.get('/', jsonParser, (req, res) => {
 router.get('/:guardians', (req, res) => {
   Patient
     .find({guardians: req.params.guardians})
-    .then(pattients => {
+    .then(patients => {
       res.json({
-        pattients: pattients.map(
-          (pattient) => pattient.apiRepr())
+        patients: patients.map(
+          (patient) => patient.apiRepr())
       });
     })
     .catch(err => {
