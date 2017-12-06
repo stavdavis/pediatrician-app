@@ -1,5 +1,4 @@
-const baseUrl = 'https://localhost/pediatrician-app';
-// const baseUrl = 'https://frozen-temple-20849.herokuapp.com';
+const baseUrl = 'https://frozen-temple-20849.herokuapp.com';
 
 let loggedInUser = "MargeAndHomerSimpson";
 $('.logged-in-as').text(`Logged in as: ${loggedInUser}`);
