@@ -13,7 +13,8 @@ function getPatientsByGuardian(callbackFn) {
 
 function displayPatientButtons(data) {
     for (index in data.patients) {
-       $('.select-child').html( //adding the patientId as the second class of the button(use in onclick later)
+        $('.patient-buttons').html(''); //clearing the previous buttons
+        $('.patient-buttons').append( //adding the patientId as the second class of the button(use in onclick later)
         `<button class="patient-button ${data.patients[index].id}">${data.patients[index].fullName}</button>`);
     }
 }
