@@ -28,7 +28,7 @@ function getAndDisplayPatientButtons() {
 //A patient button listener that logs the unique patient ID of the selected patient
 function logPatientIdFromButton() {
   $('.patient-button').click(event => {
-  selectedPatientId = $(event.currentTarget).attr('class').split(' ')[1]; //the second class was set to be the unique patientId
+  $('.logged-in-as').text = $(event.currentTarget).attr('class').split(' ')[1]; //the second class was set to be the unique patientId
   });
 }
 
@@ -61,5 +61,4 @@ let selectedPatientId;
 $(function() {
     getAndDisplayPatientButtons();
     logPatientIdFromButton();
-    setTimeout(function(){ alert(selectedPatientId); }, 3000);
 })
