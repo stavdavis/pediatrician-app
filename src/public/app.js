@@ -21,7 +21,7 @@ function displayPatientButtons(data) {
 
 const getAndDisplayPatientButtons = new Promise((resolve, reject) => {
     resolve(getPatientsByGuardian(displayPatientButtons));
-}
+});
 ////////GETTING AND DISPLAYING CLIENT'S KIDS (PATIENTS) - END//////////
 
 
