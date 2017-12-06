@@ -26,10 +26,10 @@ const getAndDisplayPatientButtons = new Promise((resolve, reject) => {
 
 
 //A patient button listener that logs the unique patient ID of the selected patient
-const logPatientIdFromButton = new Promise((resolve, reject) => {
+function logPatientIdFromButton() {
     $('.patient-buttons').on('click', '.patient-button', event => { //need event deleation here, b/c patient-button doesn't exist upon initial page load
-    $('.results-display').html(''); //wiping old results when selecting a new patient
-    resolve(currentPatientId = $(event.currentTarget).attr('class').split(' ')[1]); //the second class was set to be the unique patientId
+    $('.results-display').html(''); //wiping old results when selecting a new patient 
+    currentPatientId = $(event.currentTarget).attr('class').split(' ')[1]; //the second class was set to be the unique patientId
   });
 }
 
@@ -61,5 +61,4 @@ let currentPatientId; //this variable is updated upon patient selection in logPa
 $(function() {
     getAndDisplayPatientButtons
     .then(logPatientIdFromButton); 
-    .then(alert('testing'));
 })
