@@ -27,8 +27,8 @@ const getAndDisplayPatientButtons = new Promise((resolve, reject) => {
 
 //A patient button listener that logs the unique patient ID of the selected patient
 function logPatientIdFromButton() {
-  $('.patient-button').click(event => {
-  //$(event.currentTarget).attr('class').split(' ')[1]; //the second class was set to be the unique patientId
+  $('.patient-buttons').on('click', '.patient-button', event => {
+  $('.logged-in-as').html($(event.currentTarget).attr('class').split(' ')[1]); //the second class was set to be the unique patientId
   });
 }
 
@@ -59,5 +59,5 @@ function getAndDisplayVaccineList() {
 
 $(function() {
     getAndDisplayPatientButtons
-    .then($('.logged-in-as').html($('.patient-button').attr('class').split(' ')[1]));
+    .then(logPatientIdFromButton); //need event delegation (patient-button doesn't exist upon initial page load)
 })
