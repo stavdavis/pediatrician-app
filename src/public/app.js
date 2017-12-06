@@ -29,7 +29,8 @@ function getAndDisplayPatientButtons() {
 //A patient button listener that logs the unique patient ID of the selected patient
 function logPatientIdFromButton() {
   $('.patient-button').click(event => {
-    return $(this).attr('class').split(' ')[1]; //the second class was set to be the unique patientId
+  selectedPatientId = $(this).attr('class').split(' ')[1]; //the second class was set to be the unique patientId
+  alert(let selectedPatientId);
   });
 }
 
@@ -67,9 +68,8 @@ function getAndDisplayVaccineList() {
 ////////GETTING AND DISPLAYING VACCINES - END//////////
 
 
-
+let selectedPatientId;
 $(function() {
     getAndDisplayPatientButtons();
-    let selectedPatientId = logPatientIdFromButton();
-    alert(selectedPatientId);
+    logPatientIdFromButton();
 })
