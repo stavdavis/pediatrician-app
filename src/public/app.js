@@ -1,28 +1,39 @@
+const baseUrl = 'https://localhost/pediatrician-app';
+// const baseUrl = 'https://frozen-temple-20849.herokuapp.com';
+
 let loggedInUser = "MargeAndHomerSimpson";
+$('.logged-in-as').text(`Logged in as: ${loggedInUser}`);
 
 ////////GETTING AND DISPLAYING CLIENT'S KIDS (PATIENTS) - START//////////
 //This function gets all patients that have this user as their parent or guardian
-function getPatients(callbackFn) {
-    let patientJsonUrl = 'https://frozen-temple-20849.herokuapp.com/patients/' + loggedInUser;
-  $.getJSON(patientJsonUrl, data => callbackFn(data))
-  .error(e => { `Bad API connection` });  
+function getPatientsByGuardian(callbackFn) {
+    let patientJsonUrl = baseUrl + '/patients/' + loggedInUser;
+    $.getJSON(patientJsonUrl, data => callbackFn(data))
+    .error(e => { `Bad API connection` });
 }
 
 function displayPatientButtons(data) {
     for (index in data.patients) {
-       $('.select-child').html(
-        '<button>' + data.patients[index].firstName + '</button>');
+       $('.select-child').html( //adding the patientId as the second class of the button(use in onclick later)
+        `<button class="patient-button ${data.patients[index].id}">${data.patients[index].firstName}</button>`);
     }
 }
 
 function getAndDisplayPatientButtons() {
-    getPatients(displayPatientButtons);
+    getPatientsByGuardian(displayPatientButtons);
 }
 ////////GETTING AND DISPLAYING CLIENT'S KIDS (PATIENTS) - END//////////
 
+////////GETTING THE SELECTED PATIENT'S ID - START//////////
+function getSelectedPatientId() {
+    // /byPatient/:patientId
+
+}
+////////GETTING THE SELECTED PATIENT'S ID - END//////////
+
 ////////GETTING AND DISPLAYING VACCINES - START//////////
 function getVaccineList(callbackFn) {
-    let vaccineJsonUrl = 'https://frozen-temple-20849.herokuapp.com/vaccines';
+    let vaccineJsonUrl = baseUrl + '/vaccines';
   $.getJSON(vaccineJsonUrl, data => callbackFn(data))
   .error(e => { `Bad API connection` });  
 }
@@ -42,6 +53,7 @@ function getAndDisplayVaccineList() {
     getVaccineList(displayVaccineList);
 }
 ////////GETTING AND DISPLAYING VACCINES - END//////////
+
 
 
 $(function() {

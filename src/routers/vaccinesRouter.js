@@ -26,7 +26,7 @@ router.get('/', jsonParser, (req, res) => {
 });
 
 // can also request by patientId
-router.get('/findPatient/:patientId', (req, res) => {
+router.get('/byPatient/:patientId', (req, res) => {
   Vaccine
     .find({patientId: req.params.patientId})
     .then(vaccines => {
