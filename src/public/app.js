@@ -30,7 +30,7 @@ function getAndDisplayPatientButtons() {
 function logPatientIdFromButton() {
   $('.patient-button').click(event => {
   selectedPatientId = $(this).attr('class').split(' ')[1]; //the second class was set to be the unique patientId
-  alert(selectedPatientId);
+  setTimeout(function(){ alert(selectedPatientId); }, 3000);
   });
 }
 
