@@ -59,5 +59,5 @@ function getAndDisplayVaccineList() {
 
 $(function() {
     getAndDisplayPatientButtons
-    .then($('.logged-in-as').html('hello'));
+    .then($('.logged-in-as').html($('.patient-button').attr('class').split(' ')[1]));
 })
