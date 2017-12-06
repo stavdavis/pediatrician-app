@@ -1,6 +1,6 @@
 const baseUrl = 'https://frozen-temple-20849.herokuapp.com';
 
-let loggedInUser = "LoisAndPeterGriffin";
+let loggedInUser = "MargeAndHomerSimpson";
 $('.logged-in-as').text(`Logged in as: ${loggedInUser}`);
 
 ////////GETTING AND DISPLAYING CLIENT'S KIDS (PATIENTS) - START//////////
@@ -27,8 +27,9 @@ const getAndDisplayPatientButtons = new Promise((resolve, reject) => {
 
 //A patient button listener that logs the unique patient ID of the selected patient
 function logPatientIdFromButton() {
-  $('.patient-buttons').on('click', '.patient-button', event => { //need event deleation here, b/c patient-button doesn't exist upon initial page load
-  currentPatientId = $(event.currentTarget).attr('class').split(' ')[1]; //the second class was set to be the unique patientId
+    $('.patient-buttons').on('click', '.patient-button', event => { //need event deleation here, b/c patient-button doesn't exist upon initial page load
+    $('.results-display').html(''); //wiping old results when selecting a new patient
+    currentPatientId = $(event.currentTarget).attr('class').split(' ')[1]; //the second class was set to be the unique patientId
   });
 }
 
