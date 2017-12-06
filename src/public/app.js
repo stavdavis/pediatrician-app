@@ -28,7 +28,7 @@ const getAndDisplayPatientButtons = new Promise((resolve, reject) => {
 //A patient button listener that logs the unique patient ID of the selected patient
 function logPatientIdFromButton() {
   $('.patient-button').click(event => {
-  $('.logged-in-as').text = 'hello';//$(event.currentTarget).attr('class').split(' ')[1]; //the second class was set to be the unique patientId
+  $('.logged-in-as').text('hello');//$(event.currentTarget).attr('class').split(' ')[1]; //the second class was set to be the unique patientId
   });
 }
 
