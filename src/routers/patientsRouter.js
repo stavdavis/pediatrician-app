@@ -26,7 +26,7 @@ router.get('/', jsonParser, (req, res) => {
 });
 
 // can also request by guardians field
-router.get('/:guardians', (req, res) => {
+router.get('/byGuardianName/:guardians', (req, res) => {
   Patient
     .find({guardians: req.params.guardians})
     .then(patients => {
@@ -35,6 +35,17 @@ router.get('/:guardians', (req, res) => {
           (patient) => patient.apiRepr())
       });
     })
+    .catch(err => {
+      console.error(err);
+        res.status(500).json({message: 'Internal server error'})
+    });
+});
+
+// can also request by patient ID
+router.get('/byPatientId/:id', (req, res) => {
+  Patient
+    .findById(req.params.id)
+    .then(patient =>res.json(patient.apiRepr()))
     .catch(err => {
       console.error(err);
         res.status(500).json({message: 'Internal server error'})

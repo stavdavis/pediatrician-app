@@ -13,6 +13,9 @@ const schema = mongoose.Schema({
 schema.virtual('fullName').get(function() {
   return `${this.firstName} ${this.lastName}`.trim()});
 
+schema.virtual('age').get(function() {
+  return `${Date.now() - this.dob / (1000 * 3600 * 24)}`});
+
 //Manipulating the representation of the returned API data:
 schema.methods.apiRepr = function() {
   return {

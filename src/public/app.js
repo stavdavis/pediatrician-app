@@ -1,5 +1,5 @@
-const baseUrl = 'https://frozen-temple-20849.herokuapp.com';
-// const baseUrl = 'http://localhost:8080';
+// const baseUrl = 'https://frozen-temple-20849.herokuapp.com';
+const baseUrl = 'http://localhost:8080';
 
 let loggedInUser = "MargeAndHomerSimpson";
 $('.logged-in-as').text(`Logged in as: ${loggedInUser}`);
@@ -7,7 +7,7 @@ $('.logged-in-as').text(`Logged in as: ${loggedInUser}`);
 ////////GETTING AND DISPLAYING CLIENT'S KIDS (PATIENTS) - START//////////
 //This function gets all patients that have this user as their parent or guardian
 function getPatientsByGuardian(callbackFn) {
-    let patientJsonUrl = baseUrl + '/patients/' + loggedInUser;
+    let patientJsonUrl = baseUrl + '/patients/byGuardianName/' + loggedInUser;
     $.getJSON(patientJsonUrl, data => callbackFn(data))
     .error(e => { `Bad API connection` });
 }
@@ -132,6 +132,46 @@ function appointmentListener() {
 }
 ////////GETTING AND DISPLAYING APPOINTMENTS - END//////////
 
+////////GETTING AND DISPLAYING PATIENT INFO - START//////////
+function getPatientInfo(callbackFn) {
+    let patientJsonUrl = baseUrl + '/patients/byPatientId/' + currentPatientId;
+    $.getJSON(patientJsonUrl, data => callbackFn(data))
+    .error(e => { `Bad API connection or invalid patient ID` });  
+}
+
+function displayPatientInfo(data) {
+    $('.results-display').html(''); //clearing the results area between clicks
+    //creating the title row for the results table:
+    $('.results-display').html(
+        '<div>' + 
+            'Patient name: ' + data.fullName + '<br>' +
+            'Date of birth: ' +  formatDate(data.dob) + '<br>' +
+            'Age: ' + getAge(data.dob) + ' Years<br>' +
+            'Gender: ' + data.gender + '<br>' +
+            'Guardians: ' + data.guardians + '<br>' +
+        '</div>'
+    ); 
+}
+
+function getAndDisplayPatientInfo() {
+    getPatientInfo(displayPatientInfo);
+}
+
+//An event listener for a vaccine request (only after patient selection):
+function patientInfoListener() {
+    $('.patient-info-button').click( event => { 
+        getAndDisplayPatientInfo()
+    })
+}
+
+function getAge(dobString) {
+    let date1 = new Date(Date.now());
+    let date2 = new Date(formatDate(dobString));
+    let timeDiff = date1 - date2;
+    let diffDays = (timeDiff / (1000 * 3600 * 24 * 365)).toFixed(1); 
+    return diffDays;
+}
+////////GETTING AND DISPLAYING  PATIENT INFO - END//////////
 
 
 let currentPatientId; //this variable is updated upon patient selection in logPatientIdFromButton
@@ -140,4 +180,5 @@ $(function() {
     .then(logPatientIdFromButton)
     .then(vaccineListener)
     .then(appointmentListener)
+    .then(patientInfoListener)
 })
