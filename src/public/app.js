@@ -1,5 +1,5 @@
-// const baseUrl = 'https://frozen-temple-20849.herokuapp.com';
-const baseUrl = 'http://localhost:8080';
+const baseUrl = 'https://frozen-temple-20849.herokuapp.com';
+// const baseUrl = 'http://localhost:8080';
 
 let loggedInUser = "MargeAndHomerSimpson";
 $('.logged-in-as').text(`Logged in as: ${loggedInUser}`);
