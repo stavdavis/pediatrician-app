@@ -10,3 +10,58 @@ body * {
 .patient-buttons {
 	margin-bottom: 25px
 }
+
+.vaccine-item {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.results-display {
+	margin-top: 25px;
+}
+
+table {
+	width: 100%;
+	font-size: 2.7vw;
+	text-align: left;
+}
+
+th {
+	font-weight: bold;
+}
+
+tr {
+	width: 100%;
+}
+
+.col1-vacs {
+	width: 22%;
+}
+
+.col2-vacs {
+	width: 37%;
+}
+
+.col3-vacs {
+	width: 12%;
+}
+
+.col4-vacs, .col5-vacs {
+	width: 14.5%;
+}
+
+td {
+	padding: 2px;
+}
+
+.col1-apnts {
+	width: 15%;
+}
+
+.col2-apnts {
+	width: 20%;
+}
+
+.col3-apnts {
+	width: 65%;
+}

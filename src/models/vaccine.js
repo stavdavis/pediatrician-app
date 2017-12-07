@@ -17,6 +17,7 @@ schema.methods.apiRepr = function() {
     id: this._id,
     vaccineName: this.vaccineName,
     vaccineStatus: this.vaccineStatus,
+    patientName: this.patientName,
     patientId: this.patientId,
     relatedDiseases: this.relatedDiseases,
     dueDate: this.dueDate,

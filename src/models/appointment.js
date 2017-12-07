@@ -5,7 +5,7 @@ const schema = mongoose.Schema({
   patientName: {type: String, required: true},
   patientId: {type: String, required: true},
   date: {type: Date, required: true},
-  reason: {type: String, required: true}, //"Done" or "Not yet"
+  reason: {type: String, required: true},
   summary: {type: String}
 });
 
@@ -13,6 +13,8 @@ const schema = mongoose.Schema({
 schema.methods.apiRepr = function() {
   return {
     id: this._id,
+    patientName: this.patientName,
+    patientId: this.patientId,
     date: this.date,
     reason: this.reason,
     summary: this.summary

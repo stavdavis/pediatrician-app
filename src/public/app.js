@@ -1,4 +1,5 @@
-const baseUrl = 'https://frozen-temple-20849.herokuapp.com';
+// const baseUrl = 'https://frozen-temple-20849.herokuapp.com';
+const baseUrl = 'http://localhost:8080';
 
 let loggedInUser = "MargeAndHomerSimpson";
 $('.logged-in-as').text(`Logged in as: ${loggedInUser}`);
@@ -28,37 +29,115 @@ const getAndDisplayPatientButtons = new Promise((resolve, reject) => {
 //A patient button listener that logs the unique patient ID of the selected patient
 function logPatientIdFromButton() {
     $('.patient-buttons').on('click', '.patient-button', event => { //need event deleation here, b/c patient-button doesn't exist upon initial page load
-    $('.results-display').html(''); //wiping old results when selecting a new patient 
-    currentPatientId = $(event.currentTarget).attr('class').split(' ')[1]; //the second class was set to be the unique patientId
-  });
+        $('.results-display').html(''); //wiping old results when selecting a new patient 
+        currentPatientId = $(event.currentTarget).attr('class').split(' ')[1]; //the second class was set to be the unique patientId
+    });
 }
 
 
 ////////GETTING AND DISPLAYING VACCINES - START//////////
 function getVaccinesByPatient(callbackFn) {
-    let vaccineJsonUrl = baseUrl + '/vaccines';
-  $.getJSON(vaccineJsonUrl, data => callbackFn(data))
-  .error(e => { `Bad API connection` });  
+    let vaccineJsonUrl = baseUrl + '/vaccines/byPatient/' + currentPatientId;
+    $.getJSON(vaccineJsonUrl, data => callbackFn(data))
+    .error(e => { `Bad API connection or invalid patient ID` });  
 }
 
 function displayVaccineList(data) {
+    $('.results-display').html(''); //clearing the results area between clicks
+    //creating the title row for the results table:
+    $('.results-display').html(
+        '<table>' +
+            '<tr>' +
+                '<th class="col1-vacs">Vaccine</th>' +
+                '<th class="col2-vacs">Diseases</th>' +
+                '<th class="col3-vacs">Status</th>' +
+                '<th class="col4-vacs">Due Date</th>' +
+                '<th class="col5-vacs">Done Date</th>' +
+            '</tr>' +
+        '</table>'
+    ); 
+    //creating each row in the table:
     for (index in data.vaccines) {
-       $('.body').html(
-        '<p>' + data.vaccines[index].vaccineName + '<br>' +
-        data.vaccines[index].relatedDiseases + '<br>' +
-        data.vaccines[index].vaccineStatus + '<br>' +
-        data.vaccines[index].dueDate + '<br>' +
-        data.vaccines[index].doneDate + '</p>');
+        $('.results-display').append(
+            '<table>' +    
+                '<tr>' +
+                    '<td class="col1-vacs">' + data.vaccines[index].vaccineName + '</td>' +
+                    '<td class="col2-vacs">' + data.vaccines[index].relatedDiseases + '</td>' +
+                    '<td class="col3-vacs">' + data.vaccines[index].vaccineStatus + '</td>' +
+                    '<td class="col4-vacs">' + formatDate(data.vaccines[index].dueDate) + '</td>' +
+                    '<td class="col5-vacs">' + formatDate(data.vaccines[index].doneDate) + '</td>' +
+                '</tr>' +
+            '</table>'
+        );
     }
 }
 
 function getAndDisplayVaccinesByPatient() {
     getVaccinesByPatient(displayVaccineList);
 }
+
+//An event listener for a vaccine request (only after patient selection):
+function vaccineListener() {
+    $('.vaccines-button').click( event => { 
+        getAndDisplayVaccinesByPatient()
+    })
+}
+
+function formatDate(date) {
+    return date.slice(5,7) + "/" + date.slice(8,10) + "/" + date.slice(2,4);
+}
 ////////GETTING AND DISPLAYING VACCINES - END//////////
+
+////////GETTING AND DISPLAYING APPOINTMENTS - START//////////
+function getAppointmentsByPatient(callbackFn) {
+    let appointmentsJsonUrl = baseUrl + '/appointments/byPatient/' + currentPatientId;
+    $.getJSON(appointmentsJsonUrl, data => callbackFn(data))
+    .error(e => { `Bad API connection or invalid patient ID` });  
+}
+
+function displayAppointmentsList(data) {
+    $('.results-display').html(''); //clearing the results area between clicks
+    //creating the title row for the results table:
+    $('.results-display').html(
+        '<table>' +
+            '<tr>' +
+                '<th class="col1-apnts">Date</th>' +
+                '<th class="col2-apnts">Reason</th>' +
+                '<th class="col3-apnts">Summary</th>' +
+            '</tr>'
+    ); 
+    //creating each row in the table:
+    for (index in data.appointments) {
+        $('.results-display').append(
+            '<table>' +    
+                '<tr>' +
+                    '<td class="col1-apnts">' + formatDate(data.appointments[index].date) + '</td>' +
+                    '<td class="col2-apnts">' + data.appointments[index].reason + '</td>' +
+                    '<td class="col3-apnts">' + data.appointments[index].summary + '</td>' +
+                '</tr>' +
+            '</table>'
+        );
+    }
+}
+
+function getAndDisplayAppointmentsByPatient() {
+    getAppointmentsByPatient(displayAppointmentsList);
+}
+
+//An event listener for a vaccine request (only after patient selection):
+function appointmentListener() {
+    $('.appointment-button').click( event => { 
+        getAndDisplayAppointmentsByPatient()
+    })
+}
+////////GETTING AND DISPLAYING APPOINTMENTS - END//////////
+
+
 
 let currentPatientId; //this variable is updated upon patient selection in logPatientIdFromButton
 $(function() {
     getAndDisplayPatientButtons
-    .then(logPatientIdFromButton); 
+    .then(logPatientIdFromButton)
+    .then(vaccineListener)
+    .then(appointmentListener)
 })
