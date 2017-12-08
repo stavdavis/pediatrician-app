@@ -1,29 +1,56 @@
+'use strict';
 const express = require('express');
 const morgan = require('morgan');
 const app = express();
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-//Mongoose internally uses a promise-like object,
-// but its better to make Mongoose use built in es6 promises
-mongoose.Promise = global.Promise;
-app.use(morgan('common'));
-// config.js is where we control constants for entire
-// app like PORT and DATABASE_URL
-const {PORT, DATABASE_URL} = require('./config');
-const Vaccine = require('./src/models/vaccine');
 
+//Mongoose internally uses a promise-like object, but its better to make it use ES6 promises
+mongoose.Promise = global.Promise;
+
+const {PORT, DATABASE_URL} = require('./config');
+
+app.use(morgan('common'));
 app.use(express.static('./src/public')); //to serve static index.html file
 app.use(bodyParser.json());
 
+///////LOGIN PROCESS MANAGEMENT - START
+require('dotenv').config(); //need this for the local .env file
+const passport = require('passport');
+
+const { router: authRouter, localStrategy, jwtStrategy } = require('./src/auth');
+const { router: usersRouter } = require('./src/users');
+
+// CORS
+app.use(function (req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'Content-Type,Authorization');
+  res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,PATCH,DELETE');
+  if (req.method === 'OPTIONS') {
+    return res.send(204);
+  }
+  next();
+});
+
+passport.use(localStrategy);
+passport.use(jwtStrategy);
+
+app.use('/api/users/', usersRouter);
+app.use('/api/auth/', authRouter);
+
+const jwtAuth = passport.authenticate('jwt', { session: false }); //This is used for all endpoint (routed) below
+///////LOGIN PROCESS MANAGEMENT - END
+
+
 ///////ENDPOINT ROUTING MANAGEMENT SECTION - START
 const patientsRouter = require('./src/routers/patientsRouter');
-app.use('/patients', patientsRouter);
+app.use('/patients', jwtAuth, patientsRouter);
 
 const vaccinesRouter = require('./src/routers/vaccinesRouter');
-app.use('/vaccines', vaccinesRouter);
+app.use('/vaccines', jwtAuth, vaccinesRouter);
 
 const appointmentsRouter = require('./src/routers/appointmentsRouter');
-app.use('/appointments', appointmentsRouter);
+app.use('/appointments', jwtAuth, appointmentsRouter);
 
 ///////ENDPOINT ROUTING MANAGEMENT SECTION- END
 

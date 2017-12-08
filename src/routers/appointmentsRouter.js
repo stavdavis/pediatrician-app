@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
 const mongoose = require('mongoose');
 const Appointment = require('../models/appointment');
+
 //Mongoose internally uses a promise-like object,
 // but its better to make Mongoose use built in es6 promises
 mongoose.Promise = global.Promise;

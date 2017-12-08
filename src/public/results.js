@@ -1,14 +1,25 @@
 // const baseUrl = 'https://frozen-temple-20849.herokuapp.com';
 const baseUrl = 'http://localhost:8080';
 
-let loggedInUser = "MargeAndHomerSimpson";
+let loggedInUser = window.localStorage.getItem("pediatrician-username");
+let loggedInJwt = window.localStorage.getItem("pediatrician-jwt");
 $('.logged-in-as').text(`Logged in as: ${loggedInUser}`);
 
 ////////GETTING AND DISPLAYING CLIENT'S KIDS (PATIENTS) - START//////////
 //This function gets all patients that have this user as their parent or guardian
 function getPatientsByGuardian(callbackFn) {
     let patientJsonUrl = baseUrl + '/patients/byGuardianName/' + loggedInUser;
-    $.getJSON(patientJsonUrl, data => callbackFn(data))
+    var settings = {
+        "url": patientJsonUrl,
+        "method": "GET",
+        "headers": {
+            "content-type": "application/json",
+            "authorization": "Bearer " + loggedInJwt
+        }
+    }
+    $.ajax(settings).done(function (response) {
+      callbackFn(response);
+    })
     .error(e => { `Bad API connection` });
 }
 
@@ -38,7 +49,17 @@ function logPatientIdFromButton() {
 ////////GETTING AND DISPLAYING VACCINES - START//////////
 function getVaccinesByPatient(callbackFn) {
     let vaccineJsonUrl = baseUrl + '/vaccines/byPatient/' + currentPatientId;
-    $.getJSON(vaccineJsonUrl, data => callbackFn(data))
+    var settings = {
+        "url": vaccineJsonUrl,
+        "method": "GET",
+        "headers": {
+            "content-type": "application/json",
+            "authorization": "Bearer " + loggedInJwt
+        }
+    }
+    $.ajax(settings).done(function (response) {
+      callbackFn(response);
+    })
     .error(e => { `Bad API connection or invalid patient ID` });  
 }
 
@@ -91,7 +112,17 @@ function formatDate(date) {
 ////////GETTING AND DISPLAYING APPOINTMENTS - START//////////
 function getAppointmentsByPatient(callbackFn) {
     let appointmentsJsonUrl = baseUrl + '/appointments/byPatient/' + currentPatientId;
-    $.getJSON(appointmentsJsonUrl, data => callbackFn(data))
+    var settings = {
+        "url": appointmentsJsonUrl,
+        "method": "GET",
+        "headers": {
+            "content-type": "application/json",
+            "authorization": "Bearer " + loggedInJwt
+        }
+    }
+    $.ajax(settings).done(function (response) {
+      callbackFn(response);
+    })
     .error(e => { `Bad API connection or invalid patient ID` });  
 }
 
@@ -135,7 +166,17 @@ function appointmentListener() {
 ////////GETTING AND DISPLAYING PATIENT INFO - START//////////
 function getPatientInfo(callbackFn) {
     let patientJsonUrl = baseUrl + '/patients/byPatientId/' + currentPatientId;
-    $.getJSON(patientJsonUrl, data => callbackFn(data))
+    var settings = {
+        "url": patientJsonUrl,
+        "method": "GET",
+        "headers": {
+            "content-type": "application/json",
+            "authorization": "Bearer " + loggedInJwt
+        }
+    }
+    $.ajax(settings).done(function (response) {
+      callbackFn(response);
+    })
     .error(e => { `Bad API connection or invalid patient ID` });  
 }
 
