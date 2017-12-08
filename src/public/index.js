@@ -1,5 +1,5 @@
-// const baseUrl = 'https://frozen-temple-20849.herokuapp.com';
-const baseUrl = 'http://localhost:8080';
+const baseUrl = 'https://frozen-temple-20849.herokuapp.com';
+// const baseUrl = 'http://localhost:8080';
 
 //Registering a new user: create a submit listener:
 $('.user-login-form').submit( event => {
