@@ -8,9 +8,8 @@
   	<meta name="author" content="Stav Davis">
   	<meta name="viewport" content="width=device-width, initial-scale=1.0">
   	<!-- fonts: -->
-  	<link href="https://fonts.googleapis.com/css?family=Timmana" rel="stylesheet">
-  	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
-  	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Shadows+Into+Light" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
   	<!-- css reset: -->
 	<link rel="stylesheet" type="text/css" href="https://meyerweb.com/eric/tools/css/reset/reset.css">
 	<!-- styles: -->
@@ -18,19 +17,15 @@
 </head>
 
 <body>
-	<h1>WELCOME TO DAVIS PEDIATRICS!</h1>
-  <section class="parent-login-section">
+  <div class="parent-login-section">
+    <h1 class="business-name-header">Larchmont<br>Pediatrics</h1>
     <form class="user-login-form">
-      Username:<br>
-        <input class="username-field" type="text" name="username" value="">
-        <br>
-        Password (must be longer than 10 characters):<br>
-        <input class="password-field" type="text" name="password1" value="">
-        <br><br>
-        <input class="registration-submit-button" type="submit" value="Submit">
+        <input class="username-field" type="text" name="username" placeholder="Username" required="required">
+        <input class="password-field" type="text" name="password1" placeholder="Password" required="required">
+        <input class="large-btn login-submit-button" type="submit" value="Login">
     </form> 
-    <a href="/register.html">Or Register as a new Parent!</a>
-  </section>
+    <a class="large-btn register-link" href="/register.html">Or register as a new parent!</a>
+  </div>
   
   <button class="staff-login-button">Staff Login</button>
 

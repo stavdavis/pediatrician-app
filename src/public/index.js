@@ -1,6 +1,3 @@
-const baseUrl = 'https://frozen-temple-20849.herokuapp.com';
-// const baseUrl = 'http://localhost:8080';
-
 //Registering a new user: create a submit listener:
 $('.user-login-form').submit( event => {
   event.preventDefault();
@@ -14,7 +11,7 @@ $('.user-login-form').submit( event => {
 function getAndStoreJwt(usernameInput, passwordInput) {
   return new Promise((resolve, reject) => {
     var settings = {
-      "url": baseUrl + "/api/auth/login",
+      "url": "/api/auth/login",
       "method": "POST",
       "headers": {
         "content-type": "application/json"
