@@ -15,7 +15,6 @@ $('.new-user-registration-form').submit( event => {
   }
   $.ajax(settings).done(function (response) {
     getAndStoreJwt(usernameInput, passwordInput);
-    window.location.href='/results.html';
   });
 })
 
@@ -35,6 +34,7 @@ function getAndStoreJwt(usernameInput, passwordInput) {
   $.ajax(settings).done(function (response) {
     window.localStorage.setItem('pediatrician-jwt', response.authToken);
     window.localStorage.setItem('pediatrician-username', usernameInput);
+    window.location.href='/results.html';
   });
 }
 
