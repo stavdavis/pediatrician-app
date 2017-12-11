@@ -7,6 +7,10 @@ $('.user-login-form').submit( event => {
   .then(window.location.href='/results.html');
 });
 
+$('.staff-login-button').click( event => {
+  window.location.href='/results.html';
+})
+
 //Getting this user's JWT and storing it locally for use in other pages:
 function getAndStoreJwt(usernameInput, passwordInput) {
   return new Promise((resolve, reject) => {
@@ -19,10 +23,12 @@ function getAndStoreJwt(usernameInput, passwordInput) {
       "data": `{"username": "${usernameInput}", 
                 "password": "${passwordInput}"}`
     }
-
-    $.ajax(settings).done(function (response) {
-      window.localStorage.setItem('pediatrician-jwt', response.authToken);
-      window.localStorage.setItem('pediatrician-username', usernameInput);
-    });
+    resolve(
+      $.ajax(settings).done(function (response) {
+        console.log('here');
+        window.localStorage.setItem('pediatrician-jwt', response.authToken);
+        window.localStorage.setItem('pediatrician-username', usernameInput);
+      })
+    )
   })
 }

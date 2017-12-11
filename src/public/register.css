@@ -78,3 +78,9 @@ input {
     cursor: pointer;
     margin-bottom: 1px;
 }
+
+@media only screen and (min-width: 550px) {
+    .parent-registration-section {
+        width: 400px;
+    }
+}

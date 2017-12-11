@@ -24,7 +24,7 @@ function displayPatientButtons(data) {
     $('.patient-buttons').html(''); //clearing the previous buttons
     for (index in data.patients) {
         $('.patient-buttons').append( //adding the patientId as the second class of the button(use in onclick later)
-        `<button class="patient-button ${data.patients[index].id}">${data.patients[index].fullName}</button>`);
+        `<button class="patient-button ${data.patients[index].id} service-btn">${data.patients[index].fullName}</button>`);
     }
 }
 
@@ -62,31 +62,38 @@ function getVaccinesByPatient(callbackFn) {
 
 function displayVaccineList(data) {
     $('.results-display').html(''); //clearing the results area between clicks
-    //creating the title row for the results table:
-    $('.results-display').html(
-        '<table>' +
-            '<tr>' +
-                '<th class="col1-vacs">Vaccine</th>' +
-                '<th class="col2-vacs">Diseases</th>' +
-                '<th class="col3-vacs">Status</th>' +
-                '<th class="col4-vacs">Due Date</th>' +
-                '<th class="col5-vacs">Done Date</th>' +
-            '</tr>' +
-        '</table>'
-    ); 
-    //creating each row in the table:
-    for (index in data.vaccines) {
-        $('.results-display').append(
-            '<table>' +    
+    if (data.vaccines[0] == undefined) {
+        $('.results-display').html(
+            '<div class="patient-name-or-no-results-msg">Our staff has not updated any vaccines for this patient yet.</div>')
+    } else {
+
+        //creating the title row for the results table:
+        $('.results-display').html(
+            '<div class="patient-name-or-no-results-msg">Vaccine history for: ' + data.vaccines[0].patientName + '</div>' +
+            '<table>' +
                 '<tr>' +
-                    '<td class="col1-vacs">' + data.vaccines[index].vaccineName + '</td>' +
-                    '<td class="col2-vacs">' + data.vaccines[index].relatedDiseases + '</td>' +
-                    '<td class="col3-vacs">' + data.vaccines[index].vaccineStatus + '</td>' +
-                    '<td class="col4-vacs">' + formatDate(data.vaccines[index].dueDate) + '</td>' +
-                    '<td class="col5-vacs">' + formatDate(data.vaccines[index].doneDate) + '</td>' +
+                    '<th class="col1-vacs">Vaccine</th>' +
+                    '<th class="col2-vacs">Diseases</th>' +
+                    '<th class="col3-vacs">Status</th>' +
+                    '<th class="col4-vacs">Due Date</th>' +
+                    '<th class="col5-vacs">Done Date</th>' +
                 '</tr>' +
             '</table>'
-        );
+        ); 
+        //creating each row in the table:
+        for (index in data.vaccines) {
+            $('.results-display').append(
+                '<table>' +    
+                    '<tr>' +
+                        '<td class="col1-vacs">' + data.vaccines[index].vaccineName + '</td>' +
+                        '<td class="col2-vacs">' + data.vaccines[index].relatedDiseases + '</td>' +
+                        '<td class="col3-vacs">' + data.vaccines[index].vaccineStatus + '</td>' +
+                        '<td class="col4-vacs">' + formatDate(data.vaccines[index].dueDate) + '</td>' +
+                        '<td class="col5-vacs">' + formatDate(data.vaccines[index].doneDate) + '</td>' +
+                    '</tr>' +
+                '</table>'
+            );
+        }
     }
 }
 
@@ -125,26 +132,32 @@ function getAppointmentsByPatient(callbackFn) {
 
 function displayAppointmentsList(data) {
     $('.results-display').html(''); //clearing the results area between clicks
-    //creating the title row for the results table:
-    $('.results-display').html(
-        '<table>' +
-            '<tr>' +
-                '<th class="col1-apnts">Date</th>' +
-                '<th class="col2-apnts">Reason</th>' +
-                '<th class="col3-apnts">Summary</th>' +
-            '</tr>'
-    ); 
-    //creating each row in the table:
-    for (index in data.appointments) {
-        $('.results-display').append(
-            '<table>' +    
+    if (data.appointments[0] == undefined) {
+        $('.results-display').html(
+            '<div class="patient-name-or-no-results-msg">Our staff has not updated any appointments for this patient yet.</div>')
+    } else {
+        //creating the title row for the results table:
+        $('.results-display').html(
+            '<div class="patient-name-or-no-results-msg">Past & future visits log for: ' + data.appointments[0].patientName + '</div>' +
+            '<table>' +
                 '<tr>' +
-                    '<td class="col1-apnts">' + formatDate(data.appointments[index].date) + '</td>' +
-                    '<td class="col2-apnts">' + data.appointments[index].reason + '</td>' +
-                    '<td class="col3-apnts">' + data.appointments[index].summary + '</td>' +
-                '</tr>' +
-            '</table>'
-        );
+                    '<th class="col1-apnts">Date</th>' +
+                    '<th class="col2-apnts">Reason</th>' +
+                    '<th class="col3-apnts">Summary</th>' +
+                '</tr>'
+        ); 
+        //creating each row in the table:
+        for (index in data.appointments) {
+            $('.results-display').append(
+                '<table>' +    
+                    '<tr>' +
+                        '<td class="col1-apnts">' + formatDate(data.appointments[index].date) + '</td>' +
+                        '<td class="col2-apnts">' + data.appointments[index].reason + '</td>' +
+                        '<td class="col3-apnts">' + data.appointments[index].summary + '</td>' +
+                    '</tr>' +
+                '</table>'
+            );
+        }
     }
 }
 
@@ -181,7 +194,8 @@ function displayPatientInfo(data) {
     $('.results-display').html(''); //clearing the results area between clicks
     //creating the title row for the results table:
     $('.results-display').html(
-        '<div>' + 
+        '<div class="patient-name-or-no-results-msg">Patient information for: ' + data.fullName + '</div>' +
+        '<div class="patient-details-display">' + 
             'Patient name: ' + data.fullName + '<br>' +
             'Date of birth: ' +  formatDate(data.dob) + '<br>' +
             'Age: ' + getAge(data.dob) + ' Years<br>' +
@@ -211,6 +225,57 @@ function getAge(dobString) {
 }
 ////////GETTING AND DISPLAYING  PATIENT INFO - END//////////
 
+////////LISTENING TO THE LOGOUT BUTTON - START//////////
+$('.log-out-button').click( event => {
+    //clearing local storage of credentials
+    window.localStorage.removeItem("pediatrician-username");
+    window.localStorage.removeItem("pediatrician-jwt");  
+    //sending user back to login page
+    window.location.href='/index.html';
+});
+////////LISTENING TO THE LOGOUT BUTTON - END//////////
+
+////////LISTENING TO ADD CHILD BUTTON - START//////////
+//show the hidden form if the button is clicked
+$('.add-new-child-button').click( event => {
+    $('.add-child-box').toggle();
+})
+
+//Sending the API request and re-hiding the form when done
+$('.add-child-form').submit( event => {
+    event.preventDefault();
+    //Sending API POST to register new child:
+    let childFirstName = $('.child-first-name-input').val();
+    let childLastName = $('.child-last-name-input').val();
+    let childGender = $('.child-gender-input').val();
+    let childDob = $('.child-dob-input').val();
+    let loggedInUser = window.localStorage.getItem("pediatrician-username");
+    let loggedInJwt = window.localStorage.getItem("pediatrician-jwt");
+    var settings = {
+      "url": "/patients/",
+      "method": "POST",
+      "headers": {
+        "content-type": "application/json",
+        "authorization": "Bearer " + loggedInJwt
+      },
+      "data": `{"firstName": "${childFirstName}",
+                "lastName": "${childLastName}",
+                "dob": ${new Date(childDob).getTime()},
+                "gender": "${childGender}",
+                "guardians": "${loggedInUser}"} `
+    }
+
+    $.ajax(settings).done(function (response) {
+      console.log(response);
+      $('.add-child-box').toggle();
+      //Reload the page with the new child:
+      location.reload();
+    })
+    .error(e => { `Bad API connection` });    
+});
+
+////////LISTENING TO THE ADD CHILD BUTTON - END//////////
+
 
 let currentPatientId; //this variable is updated upon patient selection in logPatientIdFromButton
 $(function() {
@@ -220,3 +285,4 @@ $(function() {
     .then(appointmentListener)
     .then(patientInfoListener)
 })
+

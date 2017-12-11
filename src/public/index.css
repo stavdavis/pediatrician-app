@@ -92,3 +92,13 @@ input {
 	margin-right: auto;
 	display:block;
 }
+
+@media only screen and (min-width: 550px) {
+	.parent-login-section {
+		width: 400px;
+	}
+
+	.register-link {
+		font-size: 15px;
+	}
+}
