@@ -63,19 +63,37 @@ Below are all the possible user paths:
 				* Error handling similar to regular user (see above)
 
 #### Screenshots
-<div class="screenshots">
-	<img src="/screenshots/01-login-blank.PNG" alt="Login page - blank" width="250" style="display: inline-block;">  
-	<img src="/screenshots/02-login-correct.PNG" alt="Login page - with correct credentials" width="250" style="display: inline-block;">  
-	<img src="/screenshots/03-main-no-selection.PNG" alt="Main actionable page - no selections made yet" width="250" style="display: inline-block;">  
-	<img src="/screenshots/04-main-child-select.PNG" alt="Main actionable page - child selected" width="250" style="display: inline-block;">  
-	<img src="/screenshots/05-main-service-selection-and-results.PNG" alt="Main actionable page - data service selected" width="250" style="display: inline-block;">  
-	<img src="/screenshots/06-main-add-child-blank.PNG" alt="Main actionable page - 'Add Child' button selected" width="250" style="display: inline-block;">  
-	<img src="/screenshots/07-main-add-child-filled-out.PNG" alt="Main actionable page - 'Add Child' form filled out" width="250" style="display: inline-block;">  
-	<img src="/screenshots/08-main-service-selection-and-blank-results.PNG" alt="Main actionable page - new child selected" width="250" style="display: inline-block;">  
-	<img src="/screenshots/09-admin-login.PNG" alt="Admin login page" width="250" style="display: inline-block;">  
-	<img src="/screenshots/10-admin-main-no-selection.PNG" alt="Main admin page - no selections made yet" width="250" style="display: inline-block;">  
-	<img src="/screenshots/11-admin-main-add-vaccine.PNG" alt="Main admin page - add vaccine to new child" width="250" style="display: inline-block;">  
-</div>
+* Blank login page:
+<img src="/screenshots/01-login-blank.PNG" alt="Login page - blank" width="250">  
+
+* Login page with valid credentials:
+<img src="/screenshots/02-login-correct.PNG" alt="Login page - with correct credentials" width="250">  
+
+* Main actionable page - opens after logging in with valid credentials. It displays all of the logged-in user's children and an option to add new children:
+<img src="/screenshots/03-main-no-selection.PNG" alt="Main actionable page - no selections made yet" width="250">  
+
+* Main actionable page - after selecting a child, but before selecting a data service:
+<img src="/screenshots/04-main-child-select.PNG" alt="Main actionable page - child selected" width="250">  
+
+* Main actionable page - after selecting a child and a data service. The results are displayed at the bottom:
+<img src="/screenshots/05-main-service-selection-and-results.PNG" alt="Main actionable page - data service selected" width="250">  
+
+* Main actionable page - after selecting the 'add child' button. A hidden form is now displayed with the required fields.
+<img src="/screenshots/06-main-add-child-blank.PNG" alt="Main actionable page - 'Add Child' button selected" width="250">  
+
+* Main actionable page - after filling out the 'add child' form. The next screenshot will show how this is used.
+<img src="/screenshots/07-main-add-child-filled-out.PNG" alt="Main actionable page - 'Add Child' form filled out" width="250">  
+
+* Main actionable page - after submitting the new child, the page is automatically refreshed and shows the new child. This child will also exist on the doctor/staff side of the platform and they can add vaccines/appointments that will be immediately available for the logged in parent (this can be demonstrated in a live demo):
+<img src="/screenshots/08-main-service-selection-and-blank-results.PNG" alt="Main actionable page - new child selected" width="250">  
+
+* Admin login page - similar to the regular users' login page, but leads to a different main page:
+<img src="/screenshots/09-admin-login.PNG" alt="Admin login page" width="250">  
+
+* Admin main actionable page - showing all existing child-patients, which the staff can select before selecting to view, add, edit or delete any of that child's vaccine or appointment entries. Note that the new child added in the previous steps is immediately available here.
+<img src="/screenshots/10-admin-main-no-selection.PNG" alt="Main admin page - no selections made yet" width="250">  
+* This page shows the form the opens up when the admin selects the 'add vaccine' option for the 'New Child' we created in the previous steps. Once submitted, this vaccine will be immediately available for viewing by the logged in parent.
+<img src="/screenshots/11-admin-main-add-vaccine.PNG" alt="Main admin page - add vaccine to new child" width="250">  
 
 #### API Documentation
 The app uses custom made RESTful APIs with the following endpoints:
