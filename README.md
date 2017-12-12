@@ -63,17 +63,19 @@ Below are all the possible user paths:
 				* Error handling similar to regular user (see above)
 
 #### Screenshots
-<img src="/screenshots/01-login-blank.PNG" alt="Login page - blank" width="250" style="display: inline-block;">  
-<img src="/screenshots/02-login-correct.PNG" alt="Login page - with correct credentials" width="250" style="display: inline-block;">  
-<img src="/screenshots/03-main-no-selection.PNG" alt="Main actionable page - no selections made yet" width="250" style="display: inline-block;">  
-<img src="/screenshots/04-main-child-select.PNG" alt="Main actionable page - child selected" width="250" style="display: inline-block;">  
-<img src="/screenshots/05-main-service-selection-and-results.PNG" alt="Main actionable page - data service selected" width="250" style="display: inline-block;">  
-<img src="/screenshots/06-main-add-child-blank.PNG" alt="Main actionable page - 'Add Child' button selected" width="250" style="display: inline-block;">  
-<img src="/screenshots/07-main-add-child-filled-out.PNG" alt="Main actionable page - 'Add Child' form filled out" width="250" style="display: inline-block;">  
-<img src="/screenshots/08-main-service-selection-and-blank-results.PNG" alt="Main actionable page - new child selected" width="250" style="display: inline-block;">  
-<img src="/screenshots/09-admin-login.PNG" alt="Admin login page" width="250" style="display: inline-block;">  
-<img src="/screenshots/10-admin-main-no-selection.PNG" alt="Main admin page - no selections made yet" width="250" style="display: inline-block;">  
-<img src="/screenshots/11-admin-main-add-vaccine.PNG" alt="Main admin page - add vaccine to new child" width="250" style="display: inline-block;">  
+<div class="screenshots">
+	<img src="/screenshots/01-login-blank.PNG" alt="Login page - blank" width="250" style="display: inline-block;">  
+	<img src="/screenshots/02-login-correct.PNG" alt="Login page - with correct credentials" width="250" style="display: inline-block;">  
+	<img src="/screenshots/03-main-no-selection.PNG" alt="Main actionable page - no selections made yet" width="250" style="display: inline-block;">  
+	<img src="/screenshots/04-main-child-select.PNG" alt="Main actionable page - child selected" width="250" style="display: inline-block;">  
+	<img src="/screenshots/05-main-service-selection-and-results.PNG" alt="Main actionable page - data service selected" width="250" style="display: inline-block;">  
+	<img src="/screenshots/06-main-add-child-blank.PNG" alt="Main actionable page - 'Add Child' button selected" width="250" style="display: inline-block;">  
+	<img src="/screenshots/07-main-add-child-filled-out.PNG" alt="Main actionable page - 'Add Child' form filled out" width="250" style="display: inline-block;">  
+	<img src="/screenshots/08-main-service-selection-and-blank-results.PNG" alt="Main actionable page - new child selected" width="250" style="display: inline-block;">  
+	<img src="/screenshots/09-admin-login.PNG" alt="Admin login page" width="250" style="display: inline-block;">  
+	<img src="/screenshots/10-admin-main-no-selection.PNG" alt="Main admin page - no selections made yet" width="250" style="display: inline-block;">  
+	<img src="/screenshots/11-admin-main-add-vaccine.PNG" alt="Main admin page - add vaccine to new child" width="250" style="display: inline-block;">  
+</div>
 
 #### API Documentation
 The app uses custom made RESTful APIs with the following endpoints:
@@ -87,7 +89,6 @@ The app uses custom made RESTful APIs with the following endpoints:
 		* '/byPatientId/:id' - GET a child-patient with their unique ID
 		* '/:id' - PUT endpoint - for updating an existing child-patient by their unique ID
 		* '/:id' - DELETE endpoint - for deleting an existing child-patient by their unique ID
-
 
 * API for vaccine entries data:
 	* '/vaccines'
@@ -118,10 +119,6 @@ The app uses custom made RESTful APIs with the following endpoints:
 		* '/refresh' - POST
 
 * Note: all endpoints require a valid JWT for access
-
-#### Formatting
-The design was deliberately kept minimalist, as this is an analysis tool rather than a consumer facing app. 
-Dynamic layout has been implemented to adjust the appearance to different screen sizes (most elements grow proportionately up to a screen width of 550px, at which point all dimensions freeze and align to the center of the page).
 
 #### Technology Used
 * This app uses HTML, CSS, JavaScript, jQuery, NodeJS. 
