@@ -256,6 +256,7 @@ $('.log-out-button').click( event => {
 //show the hidden form if the button is clicked
 $('.add-new-child-button').click( event => {
     $('.add-child-box').toggle();
+    $('.results-display').html(''); //clearing any previously displayed results
     $('.patient-button').css("border", "1px solid #5b6f37");
     $('.srvc-btn-brdr-toggle').css("border", "1px solid #5b6f37");
     $(event.currentTarget).css("border", "2px solid red");
