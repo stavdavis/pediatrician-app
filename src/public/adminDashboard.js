@@ -5,7 +5,7 @@ $('.logged-in-as').text(`Logged in as: ${loggedInUser}`);
 ////////GETTING AND DISPLAYING CLIENT'S KIDS (PATIENTS) - START//////////
 //This function gets all patients that have this user as their parent or guardian
 function getPatientsByGuardian(callbackFn) {
-    let patientJsonUrl = '/patients/byGuardianName/' + loggedInUser;
+    let patientJsonUrl = '/patients/';
     var settings = {
         "url": patientJsonUrl,
         "method": "GET",
@@ -24,7 +24,7 @@ function displayPatientButtons(data) {
     $('.patient-buttons').html(''); //clearing the previous buttons
     for (index in data.patients) {
         $('.patient-buttons').append( //adding the patientId as the second class of the button(use in onclick later)
-        `<button class="patient-button ${data.patients[index].id} service-btn">${data.patients[index].fullName}</button>`);
+        `<button class="patient-button ${data.patients[index].id} ${data.patients[index].fullName} service-btn">${data.patients[index].fullName}</button>`);
     }
 }
 
@@ -39,11 +39,9 @@ function logPatientIdFromButton() {
     $('.patient-buttons').on('click', '.patient-button', event => { //need event deleation here, b/c patient-button doesn't exist upon initial page load
         $('.results-display').html(''); //wiping old results when selecting a new patient 
         currentPatientId = $(event.currentTarget).attr('class').split(' ')[1]; //the second class was set to be the unique patientId
+        currentPatientName = $(event.currentTarget).attr('class').split(' ')[2]; //the third class was set to be the patient's fullName
         $('.patient-button').css("border", "1px solid #5b6f37");
-        $('.add-new-child-button').css("border", "1px solid #5b6f37");
-        $('.srvc-btn-brdr-toggle').css("border", "1px solid #5b6f37");
         $(event.currentTarget).css("border", "2px solid red");
-        $('.add-child-box').css("display","none");  //clearing any unclicked forms, so they don't remain on screen
     });
 }
 
@@ -90,7 +88,8 @@ function displayVaccineList(data) {
                 '<table>' +    
                     '<tr>' +
                         '<td class="col1-vacs">' + data.vaccines[index].vaccineName + '<br>' +
-                        data.vaccines[index].relatedDiseases + '</td>' +
+                        data.vaccines[index].relatedDiseases + '<br>' +
+                        'Vaccine ID: ' + data.vaccines[index].id + '</td>' +
                         '<td class="col2-vacs">' + data.vaccines[index].vaccineStatus + '</td>' +
                         '<td class="col3-vacs">' + formatDate(data.vaccines[index].dueDate) + '</td>' +
                         '<td class="col4-vacs">' + formatDate(data.vaccines[index].doneDate) + '</td>' +
@@ -110,9 +109,10 @@ function vaccineListener() {
     $('.vaccines-button').click( event => { 
         getAndDisplayVaccinesByPatient();
         $('.srvc-btn-brdr-toggle').css("border", "1px solid #5b6f37");
-        $('.add-new-child-button').css("border", "1px solid #5b6f37");
         $(event.currentTarget).css("border", "2px solid red");
-        $('.add-child-box').css("display","none");  //clearing any unclicked forms, so they don't remain on screen
+        $('.add-vaccine-box').css("display","none");  //clearing any unclicked forms, so they don't remain on screen
+        $('.add-appointment-box').css("display","none");  //clearing any unclicked forms, so they don't remain on screen
+        $('.add-vaccine-box').css("display","none");  //in case user didn't click submit on the other form
     })
 }
 
@@ -159,7 +159,8 @@ function displayAppointmentsList(data) {
             $('.results-display').append(
                 '<table>' +    
                     '<tr>' +
-                        '<td class="col1-apnts">' + formatDate(data.appointments[index].date) + '</td>' +
+                        '<td class="col1-apnts">' + formatDate(data.appointments[index].date) + '<br>' +
+                        // 'Appointment ID: ' + data.appointments[index].id + '</td>' +
                         '<td class="col2-apnts">' + data.appointments[index].reason + '</td>' +
                         '<td class="col3-apnts">' + data.appointments[index].summary + '</td>' +
                     '</tr>' +
@@ -173,14 +174,14 @@ function getAndDisplayAppointmentsByPatient() {
     getAppointmentsByPatient(displayAppointmentsList);
 }
 
-//An event listener for a vaccine request (only after patient selection):
+//An event listener for an appointment request (only after patient selection):
 function appointmentListener() {
     $('.appointment-button').click( event => { 
         getAndDisplayAppointmentsByPatient();
         $('.srvc-btn-brdr-toggle').css("border", "1px solid #5b6f37");
-        $('.add-new-child-button').css("border", "1px solid #5b6f37");
         $(event.currentTarget).css("border", "2px solid red");
-        $('.add-child-box').css("display","none");  //clearing any unclicked forms, so they don't remain on screen
+        $('.add-vaccine-box').css("display","none");  //clearing any unclicked forms, so they don't remain on screen
+        $('.add-appointment-box').css("display","none");  //clearing any unclicked forms, so they don't remain on screen
     })
 }
 ////////GETTING AND DISPLAYING APPOINTMENTS - END//////////
@@ -226,9 +227,9 @@ function patientInfoListener() {
     $('.patient-info-button').click( event => { 
         getAndDisplayPatientInfo();
         $('.srvc-btn-brdr-toggle').css("border", "1px solid #5b6f37");
-        $('.add-new-child-button').css("border", "1px solid #5b6f37");
         $(event.currentTarget).css("border", "2px solid red");
-        $('.add-child-box').css("display","none");  //clearing any unclicked forms, so they don't remain on screen
+        $('.add-vaccine-box').css("display","none");  //clearing any unclicked forms, so they don't remain on screen
+        $('.add-appointment-box').css("display","none");  //clearing any unclicked forms, so they don't remain on screen
     })
 }
 
@@ -251,52 +252,99 @@ $('.log-out-button').click( event => {
 });
 ////////LISTENING TO THE LOGOUT BUTTON - END//////////
 
-////////LISTENING TO ADD CHILD BUTTON - START//////////
+////////LISTENING TO ADD VACCINE BUTTON - START//////////
 //show the hidden form if the button is clicked
-$('.add-new-child-button').click( event => {
-    $('.add-child-box').toggle();
-    $('.patient-button').css("border", "1px solid #5b6f37");
+$('.patient-vaccine-add').click( event => {
+    $('.add-appointment-box').css("display","none"); //in case user didn't click submit on the other form
+    $('.add-vaccine-box').toggle();
     $('.srvc-btn-brdr-toggle').css("border", "1px solid #5b6f37");
     $(event.currentTarget).css("border", "2px solid red");
 })
 
 //Sending the API request and re-hiding the form when done
-$('.add-child-form').submit( event => {
+$('.add-vaccine-form').submit( event => {
     event.preventDefault();
     //Sending API POST to register new child:
-    let childFirstName = $('.child-first-name-input').val();
-    let childLastName = $('.child-last-name-input').val();
-    let childGender = $('.child-gender-input').val();
-    let childDob = $('.child-dob-input').val();
-    let loggedInUser = window.localStorage.getItem("pediatrician-username");
-    let loggedInJwt = window.localStorage.getItem("pediatrician-jwt");
+    let vaccineName = $('.vaccine-name-input').val();
+    let vaccineStatus = $('.vaccine-status-input').val();
+    let patientName = currentPatientName;
+    let patientId = currentPatientId;
+    let relatedDiseases = $('.related-diseases-input').val();
+    let dueDate = $('.vaccine-due-date').val();
+    let doneDate = $('.vaccine-done-date').val();
     var settings = {
-      "url": "/patients/",
+      "url": "/vaccines/",
       "method": "POST",
       "headers": {
         "content-type": "application/json",
         "authorization": "Bearer " + loggedInJwt
       },
-      "data": `{"firstName": "${childFirstName}",
-                "lastName": "${childLastName}",
-                "dob": ${new Date(childDob).getTime()},
-                "gender": "${childGender}",
-                "guardians": "${loggedInUser}"} `
+      "data": `{"vaccineName": "${vaccineName}",
+                "vaccineStatus": "${vaccineStatus}",
+                "patientId": "${patientId}",
+                "relatedDiseases": "${relatedDiseases}",
+                "dueDate": ${new Date(dueDate).getTime()},
+                "doneDate": ${new Date(doneDate).getTime()}} `
     }
-
     $.ajax(settings).done(function (response) {
       console.log(response);
-      $('.add-child-box').toggle();
+      $('.add-vaccine-box').toggle();
       //Reload the page with the new child:
       location.reload();
     })
     .error(e => { `Bad API connection` });    
 });
 
-////////LISTENING TO THE ADD CHILD BUTTON - END//////////
+////////LISTENING TO THE ADD VACCINE BUTTON - END//////////
+
+////////LISTENING TO ADD APPOINTMENT BUTTON - START//////////
+//show the hidden form if the button is clicked
+$('.patient-appointment-add').click( event => {
+    $('.add-vaccine-box').css("display","none");  //in case user didn't click submit on the other form
+    $('.add-appointment-box').toggle();
+    $('.srvc-btn-brdr-toggle').css("border", "1px solid #5b6f37");
+    $(event.currentTarget).css("border", "2px solid red");
+     
+})
+
+//Sending the API request and re-hiding the form when done
+$('.add-appointment-form').submit( event => {
+    event.preventDefault();
+    //Sending API POST to register new child:
+    let patientName = currentPatientName;
+    let patientId = currentPatientId;
+    let date = $('.appointment-date-input').val();
+    let reason = $('.appointment-reason-input').val();
+    let summary = $('.appointment-summary-input').val();
+    var settings = {
+      "url": "/appointments/",
+      "method": "POST",
+      "headers": {
+        "content-type": "application/json",
+        "authorization": "Bearer " + loggedInJwt
+      },
+      "data": `{"patientName": "${patientName}",
+                "patientId": "${patientId}",
+                "date": ${new Date(date).getTime()},
+                "reason": "${reason}",
+                "summary": "${summary}"} `
+    }
+    $.ajax(settings).done(function (response) {
+      console.log(response);
+      $('.add-appointment-box').toggle();
+      //Reload the page with the new child:
+      location.reload();
+    })
+    .error(e => { `Bad API connection` });    
+});
+
+////////LISTENING TO THE ADD APPOINTMENT BUTTON - END//////////
+
+
 
 
 let currentPatientId; //this variable is updated upon patient selection in logPatientIdFromButton
+let currentPatientName;
 $(function() {
     getAndDisplayPatientButtons
     .then(logPatientIdFromButton)

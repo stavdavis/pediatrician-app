@@ -6,6 +6,7 @@ $('.new-user-registration-form').submit( event => {
   //Sending user registration data to users api
   var settings = {
     "url": "/api/users",
+    "error": function(error) {alert(error.responseJSON.message)},
     "method": "POST",
     "headers": {
       "content-type": "application/json"
@@ -23,6 +24,7 @@ $('.new-user-registration-form').submit( event => {
 function getAndStoreJwt(usernameInput, passwordInput) {
   var settings = {
     "url": "/api/auth/login",
+    "error": function(error) {alert(error.responseJSON.message)},
     "method": "POST",
     "headers": {
       "content-type": "application/json"

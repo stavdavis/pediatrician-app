@@ -1,19 +1,16 @@
 'use strict';
 const express = require('express');
 const bodyParser = require('body-parser');
-
-const {User} = require('./models');
-
 const router = express.Router();
-
 const jsonParser = bodyParser.json();
+const {User} = require('./models');
 
 // Post to register a new user
 router.post('/', jsonParser, (req, res) => {
   const requiredFields = ['username', 'password'];
   const missingField = requiredFields.find(field => !(field in req.body));
-
   if (missingField) {
+    console.log('here');
     return res.status(422).json({
       code: 422,
       reason: 'ValidationError',
@@ -21,12 +18,10 @@ router.post('/', jsonParser, (req, res) => {
       location: missingField
     });
   }
-
   const stringFields = ['username', 'password', 'firstName', 'lastName'];
   const nonStringField = stringFields.find(
     field => field in req.body && typeof req.body[field] !== 'string'
   );
-
   if (nonStringField) {
     return res.status(422).json({
       code: 422,
@@ -84,9 +79,9 @@ router.post('/', jsonParser, (req, res) => {
       code: 422,
       reason: 'ValidationError',
       message: tooSmallField
-        ? `Must be at least ${sizedFields[tooSmallField]
+        ? `Password must be at least ${sizedFields[tooSmallField]
           .min} characters long`
-        : `Must be at most ${sizedFields[tooLargeField]
+        : `Password must be at most ${sizedFields[tooLargeField]
           .max} characters long`,
       location: tooSmallField || tooLargeField
     });

@@ -73,14 +73,21 @@ body {
 }
 
 /**************Add child pop-up box (initially hidden) - start**************/
-.add-child-box {
+.action-form-box {
 	margin-top: 15px;
 	width: 220px;
 	margin-right: auto;
 	margin-left: auto;
 }
 
-.child-first-name-input, .child-last-name-input, .child-dob-input, .child-gender-input {
+.vaccine-name-input, 
+.related-diseases-input,
+.vaccine-status-input,
+.vaccine-due-date,
+.vaccine-done-date,
+.appointment-date-input,
+.appointment-reason-input,
+.appointment-summary-input {
     width: 100%;
     height: 22px;
     margin-bottom: 10px;
@@ -96,20 +103,28 @@ body {
     box-shadow: inset 0 -100px 100px rgba(255,255,255,0.2), 0 1px 1px rgba(255,255,255,0.2);
 }
 
-.child-first-name-input::placeholder, .child-last-name-input::placeholder, .child-dob-input::placeholder {
+.vaccine-name-input::placeholder, 
+.related-diseases-input::placeholder, 
+.vaccine-due-date::placeholder, 
+.vaccine-done-date::placeholder,
+.appointment-date-input::placeholder,
+.appointment-reason-input::placeholder,
+.appointment-summary-input::placeholder {
 	color: white;
 }
 
 /*type="date" doesn't allow a placeholder attribute, so this is a workaround:*/
-.child-dob-input:before {
+.vaccine-due-date:before,
+.vaccine-done-date:before,
+.appointment-date-input:before {
 	content: attr(placeholder);
 	color: white;
 	font-size: 13px;
 	font-family: 'Open Sans', sans-serif;
 }
 
-
-.new-child-submit-button {
+.new-vaccine-submit-button,
+.new-appointment-submit-button {
 	font-size: 10px;
 	display: inline-block;
 	background-color: #6d8542;
@@ -125,6 +140,10 @@ body {
     border-radius: 2px;
     cursor: pointer;
     margin-bottom: 1px;	
+}
+
+.inactive {
+	color: lightgray !important;
 }
 
 /**************Add child pop-up box (initially hidden) - end**************/
@@ -160,7 +179,7 @@ body {
 
 .vaccines-button, .appointment-button, .patient-info-button {
 	font-size: 11px;
-	margin-left: 1px;
+	margin-left: 5px;
 }
 
 .add-new-child-button {
@@ -233,7 +252,7 @@ td {
 }
 
 .col1-apnts {
-	width: 15%;
+	width: 20%;
 }
 
 .col2-apnts {
@@ -241,7 +260,7 @@ td {
 }
 
 .col3-apnts {
-	width: 65%;
+	width: 60%;
 }
 
 .patient-details-display {
