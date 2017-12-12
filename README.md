@@ -63,35 +63,70 @@ Below are all the possible user paths:
 				* Error handling similar to regular user (see above)
 
 #### Screenshots
-<img src="/screenshots/01-login-blank.PNG" alt="Login page - blank" width="350">  
-<img src="/screenshots/02-login-correct.PNG" alt="Login page - with correct credentials" width="350">  
-<img src="/screenshots/03-main-no-selection.PNG" alt="Main actionable page - no selections made yet" width="350">  
-<img src="/screenshots/04-main-child-select.PNG" alt="Main actionable page - child selected" width="350">  
-<img src="/screenshots/05-main-service-selection-and-results.PNG" alt="Main actionable page - data service selected" width="350">  
-<img src="/screenshots/06-main-add-child-blank.PNG" alt="Main actionable page - 'Add Child' button selected" width="350">  
-<img src="/screenshots/07-main-add-child-filled-out.PNG" alt="Main actionable page - 'Add Child' form filled out" width="350">  
-<img src="/screenshots/08-main-service-selection-and-blank-results.PNG" alt="Main actionable page - new child selected" width="350">  
-<img src="/screenshots/09-admin-login.PNG" alt="Admin login page" width="350">  
-<img src="/screenshots/10-admin-main-no-selection.PNG" alt="Main admin page - no selections made yet" width="350">  
-<img src="/screenshots/11-admin-main-add-vaccine.PNG" alt="Main admin page - add vaccine to new child" width="350">  
+<img src="/screenshots/01-login-blank.PNG" alt="Login page - blank" width="250" style="display: inline-block;">  
+<img src="/screenshots/02-login-correct.PNG" alt="Login page - with correct credentials" width="250" style="display: inline-block;">  
+<img src="/screenshots/03-main-no-selection.PNG" alt="Main actionable page - no selections made yet" width="250" style="display: inline-block;">  
+<img src="/screenshots/04-main-child-select.PNG" alt="Main actionable page - child selected" width="250" style="display: inline-block;">  
+<img src="/screenshots/05-main-service-selection-and-results.PNG" alt="Main actionable page - data service selected" width="250" style="display: inline-block;">  
+<img src="/screenshots/06-main-add-child-blank.PNG" alt="Main actionable page - 'Add Child' button selected" width="250" style="display: inline-block;">  
+<img src="/screenshots/07-main-add-child-filled-out.PNG" alt="Main actionable page - 'Add Child' form filled out" width="250" style="display: inline-block;">  
+<img src="/screenshots/08-main-service-selection-and-blank-results.PNG" alt="Main actionable page - new child selected" width="250" style="display: inline-block;">  
+<img src="/screenshots/09-admin-login.PNG" alt="Admin login page" width="250" style="display: inline-block;">  
+<img src="/screenshots/10-admin-main-no-selection.PNG" alt="Main admin page - no selections made yet" width="250" style="display: inline-block;">  
+<img src="/screenshots/11-admin-main-add-vaccine.PNG" alt="Main admin page - add vaccine to new child" width="250" style="display: inline-block;">  
 
 #### API Documentation
+The app uses custom made RESTful APIs with the following endpoints:
 
-#### Error Handling
-There are two possible errors (other than loss of internet connection):
-* User inputs an invalid stock symbol (example: 'ASDDEASAD')
-* User inputs a valid symbol, but that stock does not bear a dividend (example: 'GOOG' for Google)
-Both errors are caught and handled with an alert that doesn not crash the app. Below are two screenshots:  
-<img src="/screenshots/invalid-error.png" alt="Invalid symbol error" width="350">
-<img src="/screenshots/no-dividend-error.png" alt="Valid but no dividend error" width="350">  
+* API for children-patients data:
+	* '/patients'
+		* '/' - GET a list of all patients
+		* '/' - POST a new child-patient
+			* Required fields: 'firstName', 'lastName', 'dob', 'gender', 'guardians'
+		* '/byGuardianName/:guardians' - GET all children-patients of the current parent-user
+		* '/byPatientId/:id' - GET a child-patient with their unique ID
+		* '/:id' - PUT endpoint - for updating an existing child-patient by their unique ID
+		* '/:id' - DELETE endpoint - for deleting an existing child-patient by their unique ID
 
+
+* API for vaccine entries data:
+	* '/vaccines'
+		* '/' - GET a list of all vaccines in the database, across all patients
+		* '/' - POST a new vaccine
+			* Required fields: 'vaccineName', 'vaccineStatus', 'patientId', 'relatedDiseases'
+		* '/byPatient/:patientId' - GET all vaccines given to a specific child, using the child's unique ID
+		* '/:id' - PUT endpoint - for updating an existing vaccine entry, using its unique vaccine ID
+		* '/:id' - DELETE endpoint - for deleting an existing vaccine entry, using its unique vaccine ID
+
+* API for appointment entries data:
+	* '/appointments'
+		* '/' - GET a list of all appointments in the database, across all patients
+		* '/' - POST a new appointment to the database
+			* Required fields: patientName', 'patientId', 'date', 'reason', 'summary'
+		* '/byPatient/:patientId' - GET all appointments assigned to a specific child-patient, using the child's unique ID
+		* '/:id' - PUT endpoint - for updating an existing appointment entry, using its unique appointment ID
+		* '/:id' - DELETE endpoint - for deleting an existing appointment entry, using its unique appointment ID
+
+* API for registering new users and checking existing user logins:
+	* '/src/users'
+		* POST: '/' - POST, GET
+		* The relevant schemas can be found in: /src/users/models.js
+
+* API for creating JWTs:
+	* '/src/auth'
+		* '/login' - POST
+		* '/refresh' - POST
+
+* Note: all endpoints require a valid JWT for access
 
 #### Formatting
 The design was deliberately kept minimalist, as this is an analysis tool rather than a consumer facing app. 
 Dynamic layout has been implemented to adjust the appearance to different screen sizes (most elements grow proportionately up to a screen width of 550px, at which point all dimensions freeze and align to the center of the page).
 
 #### Technology Used
-This simple app uses HTML, CSS, JavaScript and jQuery.
+* This app uses HTML, CSS, JavaScript, jQuery, NodeJS. 
+* It runs TravisCI for Continuous Integration testing and is set up on Heroku, and mLab as the remote database (mongo was used as the local DB). 
+* The app uses JWTs for authentication (with local storage) and custom RESTful APIs (see documentation above).
 
 #### Browser Compatibility
 This app has been tested and works on all major browsers (Chrome, Firefox, Edge, Safari) except IE11 (due to handling of template literals and backticks specifically). Babel will be used in future iterations to handle that issue.
