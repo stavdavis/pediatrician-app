@@ -63,17 +63,17 @@ Below are all the possible user paths:
 				* Error handling similar to regular user (see above)
 
 #### Screenshots
-<img src="/screenshots/01-login-blank.png" alt="Login page - blank" width="350">  
-<img src="/screenshots/02-login-correct.png" alt="Login page - with correct credentials" width="350">  
-<img src="/screenshots/03-main-no-selection.png" alt="Main actionable page - no selections made yet" width="350">  
-<img src="/screenshots/04-main-child-select.png" alt="Main actionable page - child selected" width="350">  
-<img src="/screenshots/05-main-service-selection-and-results.png" alt="Main actionable page - data service selected" width="350">  
-<img src="/screenshots/06-main-add-child-blank.png" alt="Main actionable page - 'Add Child' button selected" width="350">  
-<img src="/screenshots/07-main-add-child-filled-out.png" alt="Main actionable page - 'Add Child' form filled out" width="350">  
-<img src="/screenshots/08-main-service-selection-and-blank-results.png" alt="Main actionable page - new child selected" width="350">  
-<img src="/screenshots/09-admin-login.png" alt="Admin login page" width="350">  
-<img src="/screenshots/10-admin-main-no-selection.png" alt="Main admin page - no selections made yet" width="350">  
-<img src="/screenshots/11-admin-main-add-vaccine.png" alt="Main admin page - add vaccine to new child" width="350">  
+<img src="/screenshots/01-login-blank.PNG" alt="Login page - blank" width="350">  
+<img src="/screenshots/02-login-correct.PNG" alt="Login page - with correct credentials" width="350">  
+<img src="/screenshots/03-main-no-selection.PNG" alt="Main actionable page - no selections made yet" width="350">  
+<img src="/screenshots/04-main-child-select.PNG" alt="Main actionable page - child selected" width="350">  
+<img src="/screenshots/05-main-service-selection-and-results.PNG" alt="Main actionable page - data service selected" width="350">  
+<img src="/screenshots/06-main-add-child-blank.PNG" alt="Main actionable page - 'Add Child' button selected" width="350">  
+<img src="/screenshots/07-main-add-child-filled-out.PNG" alt="Main actionable page - 'Add Child' form filled out" width="350">  
+<img src="/screenshots/08-main-service-selection-and-blank-results.PNG" alt="Main actionable page - new child selected" width="350">  
+<img src="/screenshots/09-admin-login.PNG" alt="Admin login page" width="350">  
+<img src="/screenshots/10-admin-main-no-selection.PNG" alt="Main admin page - no selections made yet" width="350">  
+<img src="/screenshots/11-admin-main-add-vaccine.PNG" alt="Main admin page - add vaccine to new child" width="350">  
 
 #### API Documentation
 
