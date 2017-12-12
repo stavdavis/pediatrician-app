@@ -24,7 +24,7 @@ function displayPatientButtons(data) {
     $('.patient-buttons').html(''); //clearing the previous buttons
     for (index in data.patients) {
         $('.patient-buttons').append( //adding the patientId as the second class of the button(use in onclick later)
-        `<button class="patient-button ${data.patients[index].id} service-btn">${data.patients[index].fullName}</button>`);
+        `<button class="patient-button ${data.patients[index].id} ${data.patients[index].fullName} service-btn">${data.patients[index].fullName}</button>`);
     }
 }
 
@@ -39,6 +39,7 @@ function logPatientIdFromButton() {
     $('.patient-buttons').on('click', '.patient-button', event => { //need event deleation here, b/c patient-button doesn't exist upon initial page load
         $('.results-display').html(''); //wiping old results when selecting a new patient 
         currentPatientId = $(event.currentTarget).attr('class').split(' ')[1]; //the second class was set to be the unique patientId
+        currentPatientName = $(event.currentTarget).attr('class').split(' ')[2]; //the third class was set to be the unique patientName
         $('.patient-button').css("border", "1px solid #5b6f37");
         $('.add-new-child-button').css("border", "1px solid #5b6f37");
         $('.srvc-btn-brdr-toggle').css("border", "1px solid #5b6f37");
@@ -74,7 +75,7 @@ function displayVaccineList(data) {
 
         //creating the title row for the results table:
         $('.results-display').html(
-            '<div class="patient-name-or-no-results-msg">Vaccine history for: ' + data.vaccines[0].patientName + '</div>' +
+            '<div class="patient-name-or-no-results-msg">Vaccine history for: ' + currentPatientName + '</div>' +
             '<table>' +
                 '<tr>' +
                     '<th class="col1-vacs">Vaccine</th>' +
@@ -297,6 +298,7 @@ $('.add-child-form').submit( event => {
 
 
 let currentPatientId; //this variable is updated upon patient selection in logPatientIdFromButton
+let currentPatientName; //this variable is updated upon patient selection in logPatientIdFromButton
 $(function() {
     getAndDisplayPatientButtons
     .then(logPatientIdFromButton)
